@@ -10,7 +10,8 @@ public final class MiniJavaTokens {
   private static final Pattern BLOCK_COMMENT = Pattern.compile("/\\*(?!\\*)[\\s\\S]*?\\*/");
   private static final Pattern LINE_COMMENT = Pattern.compile("//.*");
   private static final Pattern STRING_LITERAL = Pattern.compile("\"([^\"\\\\]|\\\\.)*\"");
-  private static final Pattern CHAR_LITERAL = Pattern.compile("'([^'\\\\\\r\\n]|\\\\.)'");
+  private static final Pattern CHAR_LITERAL =
+      Pattern.compile("(?<![\\w\\\\'])'(?:[^'\\\\\\r\\n]|\\\\.)'(?![\\w'])");
   private static final Pattern ANNOTATION = Pattern.compile("@[A-Za-z-]+");
   private static final Pattern KEYWORD =
       Pattern.compile(
