@@ -1,0 +1,238 @@
+# ============================================================
+# POSTMORTEM: BLATT 04 - SYNTAXHIGHLIGHTING
+# ============================================================
+
+## 1. AUFGABENSTELLUNG
+
+In Blatt 04 sollte ein kleines Java-Projekt zum Syntaxhighlighting bearbeitet
+werden.
+
+Pflicht waren:
+
+- Aufgabe 1: `MiniJavaTokens` mit regulären Ausdrücken vervollständigen,
+- Aufgabe 4: GitHub Actions CI und Pull-Request-Arbeitsweise.
+
+Zusätzlich musste genau eine der beiden Aufgaben bearbeitet werden:
+
+- Aufgabe 2: `RegexHighlighter`,
+- Aufgabe 3: `ScanningHighlighter`.
+
+Fortgeschrittene sollten zusätzlich auch die jeweils andere Aufgabe bearbeiten.
+
+In dieser Lösung wurden Aufgabe 2 und Aufgabe 3 beide umgesetzt. Damit ist mehr
+bearbeitet als der Mindestumfang.
+
+## 2. WAS WURDE UMGESETZT?
+
+Umgesetzt wurden:
+
+- MiniJava-Tokens für Strings, Characters, Keywords, Annotationen und Kommentare,
+- RegexHighlighter mit Sammlung aller Token-Treffer,
+- Konfliktauflösung für überlappende Regex-Regionen,
+- ScanningHighlighter mit "längstes Match gewinnt",
+- Identitäts-`normalize` für den Scanner,
+- JUnit-Tests für Tokens,
+- JUnit-Tests für RegexHighlighter,
+- JUnit-Tests für ScanningHighlighter,
+- Integrationstests mit dem echten Beispieltext,
+- GitHub-Actions-Workflow mit `build`, `test` und `format`,
+- PR-Notizen,
+- ausführliche Dokumentation pro Aufgabe.
+
+## 3. WICHTIGE ENTSCHEIDUNGEN
+
+Die Token-Reihenfolge wurde bewusst gewählt:
+
+```text
+Javadoc
+Blockkommentar
+Zeilenkommentar
+String
+Character
+Annotation
+Keyword
+```
+
+Warum?
+
+Kommentare und Literale sind größere, stärkere Bereiche. Ein Keyword innerhalb
+eines Kommentars sollte nicht am Ende als Keyword eingefärbt werden.
+
+Javadoc steht vor Blockkommentar, weil ein Javadoc-Kommentar syntaktisch auch mit
+`/*` beginnt, aber anders eingefärbt werden soll.
+
+## 4. KORREKTUREN IM ZWEITEN DURCHLAUF
+
+Beim ersten Testdurchlauf wurde sichtbar, dass Character-Literale besonders
+vorsichtig behandelt werden müssen.
+
+Ein zu einfaches Pattern kann in ungültigen Literalen wie `'ab'` einen falschen
+Teiltreffer finden.
+
+Deshalb wurde das Character-Pattern verschärft:
+
+```java
+"(?<![\\w\\\\'])'(?:[^'\\\\\\r\\n]|\\\\.)'(?![\\w'])"
+```
+
+Danach wurden die Tests erneut ausgeführt.
+
+Zusätzlich wurde nach dem zweiten Review eine Integrationstestklasse ergänzt:
+
+```text
+src/test/java/highlighting/SyntaxHighlightingIntegrationTest.java
+```
+
+Diese Tests prüfen nicht nur einzelne Methoden, sondern das Zusammenspiel aus:
+
+- Tokenliste,
+- RegexHighlighter,
+- ScanningHighlighter,
+- Beispieltext `Texts.START_TEXT`.
+
+## 5. TESTBERICHT
+
+Der Gradle-Testbericht liegt unter:
+
+```text
+build/reports/tests/test/index.html
+```
+
+In PowerShell kann er so geöffnet werden:
+
+```powershell
+start build/reports/tests/test/index.html
+```
+
+============================================================
+↓↓↓ BILD HIER EINFÜGEN ↓↓↓
+============================================================
+
+[HIER DEN SCREENSHOT VOM GRADLE-TESTBERICHT EINFÜGEN]
+
+Erwarteter Inhalt:
+
+```text
+All Results
+Gradle Test Run :test
+23 tests
+0 failures
+0 skipped
+100 % successful
+```
+
+Aufgeschlüsselt:
+
+```text
+MiniJavaTokensTest: 6 Tests
+RegexHighlighterTest: 6 Tests
+ScanningHighlighterTest: 6 Tests
+SyntaxHighlightingIntegrationTest: 5 Tests
+```
+
+Insgesamt:
+
+```text
+23 Tests
+0 Failures
+0 Skipped
+100 % Successful
+```
+
+## 6. MEHRFACHE VERIFIKATION
+
+Ausgeführt wurde zuerst ein kompletter sauberer Lauf:
+
+```powershell
+.\gradlew.bat clean classes test spotlessCheck
+```
+
+Danach wurde ein zweiter Testlauf ausgeführt:
+
+```powershell
+.\gradlew.bat test
+```
+
+Danach wurde Spotless noch einmal einzeln geprüft:
+
+```powershell
+.\gradlew.bat spotlessCheck
+```
+
+Alle Läufe waren erfolgreich.
+
+## 7. WAS FEHLT NOCH?
+
+Technisch im Code fehlt für Blatt 04 nichts Wesentliches.
+
+Nicht bearbeitet wurde:
+
+```text
+src/main/java/highlighting/antlr/AntlrTokenCollector.java
+```
+
+Das ist kein Problem, weil das Aufgabenblatt ausdrücklich sagt, dass das Package
+`highlighting.antlr` und die ANTLR-Konfiguration für dieses Blatt ignoriert
+werden sollen.
+
+Organisatorisch fehlt noch:
+
+- eigener GitHub-Fork oder eigenes privates Repository als Remote,
+- Push der lokalen Commits,
+- echte Pull Requests auf GitHub,
+- gegenseitige Reviews mit Kommiliton:innen,
+- Screenshot vom GitHub-Actions-Lauf,
+- Screenshot vom Gradle-Testbericht, falls gefordert.
+
+## 8. WARUM IST DIE LÖSUNG STABIL?
+
+Die Lösung ist stabil, weil sie nicht nur "happy paths" testet.
+
+Geprüft wurden auch:
+
+- leere Texte,
+- Texte ohne Treffer,
+- überlappende Regionen,
+- direkt angrenzende Regionen,
+- Keyword innerhalb von Kommentar,
+- Javadoc versus Blockkommentar,
+- längstes Match beim Scanner,
+- Gleichstand beim Scanner,
+- Nicht-Treffer zwischen Treffern,
+- echter Beispieltext aus dem Projekt.
+
+Dadurch wird nicht nur getestet, ob etwas funktioniert, sondern auch, ob die
+kritischen Grenzfälle kontrolliert sind.
+
+## 9. COMMIT-HISTORIE
+
+Die Bearbeitung wurde in kleinen, lesbaren Commits abgelegt:
+
+```text
+feat: define MiniJava syntax tokens
+fix: tighten character literal token matching
+test: cover MiniJava token patterns
+feat: implement regex highlighter
+test: cover regex highlighter behavior
+feat: implement scanning highlighter
+test: cover scanning highlighter behavior
+ci: add Gradle pull request workflow
+docs: add pull request notes
+test: add syntax highlighting integration checks
+```
+
+Dadurch kann man gut nachvollziehen, was wann und warum passiert ist.
+
+## 10. FAZIT
+
+Blatt 04 ist technisch sehr gut abgeschlossen.
+
+Die Pflichtaufgaben sind erledigt. Zusätzlich wurden beide auswählbaren
+Highlighter umgesetzt. Die Tests sind breit genug, um normale Fälle, Fehlerfälle
+und Grenzfälle abzudecken. Die CI ist eingerichtet und lokal mehrfach gegen die
+gleichen Gradle-Ziele geprüft.
+
+Der nächste sinnvolle Schritt ist nicht mehr Coding, sondern GitHub-Abgabe:
+Remote auf das eigene Repository setzen, pushen, Pull Requests erstellen und die
+Reviews dokumentieren.
+
