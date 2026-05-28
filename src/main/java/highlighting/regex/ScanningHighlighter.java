@@ -2,30 +2,59 @@ package highlighting.regex;
 
 import highlighting.core.HighlightRegion;
 import highlighting.core.SyntaxHighlighter;
-import java.util.*;
+import highlighting.presets.MiniJavaTokens;
+import java.util.ArrayList;
+import java.util.List;
 
-// TODO: Implement a scanning-based highlighting strategy that reads the input from left to right.
-// At each position, select the longest token that matches at this position. If there is a tie, the
-// token that appears earlier in the token list should be preferred.
-
-// TODO: Make this class inherit from {@code SyntaxHighlighter} and implement the abstract method
-// {@code collectMatches}. The scanning algorithm should ensure that the resulting list of regions
-// is already sorted, non-overlapping and contains only valid regions, so that no additional
-// normalisation or conflict resolution is required. Therefore, {@code resolveConflicts} can be left
-// as is, and {@code normalize} should be overridden as the identity function.
 public class ScanningHighlighter extends SyntaxHighlighter {
+  private final List<Token> tokens;
 
-  // TODO: Implement the scanning-based matching strategy here. Iterate from left to right over the
-  // input, determine the best matching token at each position, and collect all resulting highlight
-  // regions in order.
-  @Override
-  public List<HighlightRegion> collectMatches(String text) {
-    throw new UnsupportedOperationException("not implemented yet");
+  public ScanningHighlighter() {
+    this(MiniJavaTokens.defaultTokens());
   }
 
-  // TODO: Implement the identity function here.
+  public ScanningHighlighter(List<Token> tokens) {
+    this.tokens = List.copyOf(tokens);
+  }
+
+  @Override
+  public List<HighlightRegion> collectMatches(String text) {
+    var regions = new ArrayList<HighlightRegion>();
+    int index = 0;
+
+    while (index < text.length()) {
+      HighlightRegion bestRegion = null;
+      int bestEnd = index;
+
+      for (Token token : tokens) {
+        var matcher = token.pattern().matcher(text);
+        matcher.region(index, text.length());
+        matcher.useTransparentBounds(true);
+
+        if (matcher.lookingAt() && matcher.end() > bestEnd) {
+          int highlightedStart = matcher.start(token.matchingGroup());
+          int highlightedEnd = matcher.end(token.matchingGroup());
+
+          if (highlightedStart >= 0 && highlightedStart < highlightedEnd) {
+            bestRegion = new HighlightRegion(highlightedStart, highlightedEnd, token.colour());
+            bestEnd = matcher.end();
+          }
+        }
+      }
+
+      if (bestRegion == null) {
+        index++;
+      } else {
+        regions.add(bestRegion);
+        index = bestEnd;
+      }
+    }
+
+    return regions;
+  }
+
   @Override
   public List<HighlightRegion> normalize(List<HighlightRegion> candidates) {
-    throw new UnsupportedOperationException("not implemented yet");
+    return candidates;
   }
 }
