@@ -188,6 +188,13 @@ Organisatorisch erledigt:
 - Der Abschluss-PR #5 mit Integrationstest und Dokumentation wurde gemergt.
 - Für diese PRs wurde `CyZeTLC` als Reviewer angefragt.
 
+Review-Nachweise:
+
+- Eingegangenes Review von `CyZeTLC` zum ursprünglichen Sammel-PR:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/pull/1#issuecomment-4567566932>
+- Eigenes Review für Zouse im Repository `zouse187/prog2_ybel_syntaxhighlighting`:
+  <https://github.com/zouse187/prog2_ybel_syntaxhighlighting/pull/1#pullrequestreview-4357089417>
+
 Falls für die Abgabe Screenshots gefordert sind, müssen noch Screenshots vom
 GitHub-Actions-Lauf und vom Gradle-Testbericht in ILIAS bzw. in die
 Abgabeunterlagen eingefügt werden.
