@@ -106,12 +106,6 @@ In PowerShell kann er so geöffnet werden:
 start build/reports/tests/test/index.html
 ```
 
-============================================================
-↓↓↓ BILD HIER EINFÜGEN ↓↓↓
-============================================================
-
-[HIER DEN SCREENSHOT VOM GRADLE-TESTBERICHT EINFÜGEN]
-
 Erwarteter Inhalt:
 
 ```text
