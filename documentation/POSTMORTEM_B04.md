@@ -36,6 +36,7 @@ Umgesetzt wurden:
 - JUnit-Tests für ScanningHighlighter,
 - Integrationstests mit dem echten Beispieltext,
 - GitHub-Actions-Workflow mit `build`, `test` und `format`,
+- getrennte Feature-Branches und Pull Requests für die drei Implementierungsteile,
 - PR-Notizen,
 - ausführliche Dokumentation pro Aufgabe.
 
@@ -175,14 +176,17 @@ Das ist kein Problem, weil das Aufgabenblatt ausdrücklich sagt, dass das Packag
 `highlighting.antlr` und die ANTLR-Konfiguration für dieses Blatt ignoriert
 werden sollen.
 
-Organisatorisch fehlt noch:
+Organisatorisch erledigt:
 
-- eigener GitHub-Fork oder eigenes privates Repository als Remote,
-- Push der lokalen Commits,
-- echte Pull Requests auf GitHub,
-- gegenseitige Reviews mit Kommiliton:innen,
-- Screenshot vom GitHub-Actions-Lauf,
-- Screenshot vom Gradle-Testbericht, falls gefordert.
+- Die Änderungen wurden in das GitHub-Repository gepusht.
+- Es wurden getrennte Feature-Branches für `MiniJavaTokens`, `RegexHighlighter`
+  und `ScanningHighlighter` angelegt.
+- Die Feature-Branches wurden als PR #2, PR #3 und PR #4 gemergt.
+- Für diese PRs wurde `CyZeTLC` als Reviewer angefragt.
+
+Falls für die Abgabe Screenshots gefordert sind, müssen noch Screenshots vom
+GitHub-Actions-Lauf und vom Gradle-Testbericht in ILIAS bzw. in die
+Abgabeunterlagen eingefügt werden.
 
 ## 8. WARUM IST DIE LÖSUNG STABIL?
 
@@ -232,7 +236,7 @@ Highlighter umgesetzt. Die Tests sind breit genug, um normale Fälle, Fehlerfäl
 und Grenzfälle abzudecken. Die CI ist eingerichtet und lokal mehrfach gegen die
 gleichen Gradle-Ziele geprüft.
 
-Der nächste sinnvolle Schritt ist nicht mehr Coding, sondern GitHub-Abgabe:
-Remote auf das eigene Repository setzen, pushen, Pull Requests erstellen und die
-Reviews dokumentieren.
-
+Der nächste sinnvolle Schritt ist nicht mehr Coding, sondern nur noch die
+Abgabeform: Screenshots bzw. Links aus GitHub Actions, Pull Requests und
+Gradle-Testbericht in die Abgabeunterlagen übernehmen, falls das Praktikum das
+verlangt.

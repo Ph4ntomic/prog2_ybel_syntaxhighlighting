@@ -135,7 +135,8 @@ Pull-Request-Description und Review-Fokus genutzt werden.
 
 ## 9. WAS LOKAL ERLEDIGT WURDE
 
-Lokal wurden die Änderungen als kleine Commits angelegt:
+Lokal wurden die Änderungen als kleine Commits angelegt und anschließend in
+getrennte Feature-Branches aufgeteilt:
 
 ```text
 feat: define MiniJava syntax tokens
@@ -152,28 +153,28 @@ test: add syntax highlighting integration checks
 
 Die Commit-Historie ist dadurch gut nachvollziehbar.
 
-## 10. WAS NOCH NICHT LOKAL ERLEDIGBAR IST
+## 10. FEATURE-BRANCHES UND PULL REQUESTS
 
-Folgende Punkte fehlen noch, weil sie nicht rein lokal abgeschlossen werden
-können:
+Die drei Implementierungsaufgaben wurden nachträglich in die in Aufgabe 4.2
+geforderten Feature-Branches getrennt:
 
-- den privaten GitHub-Fork als `origin` setzen,
-- Änderungen in dein eigenes GitHub-Repository pushen,
-- echte Feature-Branches auf GitHub anlegen,
-- echte Pull Requests öffnen,
-- Reviews von Kommiliton:innen einholen,
-- selbst Reviews bei anderen abgeben,
-- Kommentare auf GitHub beantworten oder schließen,
-- Screenshot aus dem GitHub-Actions-Lauf einfügen.
-
-Aktuell zeigt `origin` noch auf das öffentliche Vorgabe-Repository.
-
-Vor dem Push muss deshalb die Remote geändert werden:
-
-```powershell
-git remote set-url origin <deine-private-repo-url>
-git push -u origin master
+```text
+feature/minijava-tokens
+feature/regex-highlighter
+feature/scanning-highlighter
 ```
+
+Daraus wurden getrennte Pull Requests erstellt und in der empfohlenen Reihenfolge
+gemergt:
+
+```text
+PR #2: MiniJavaTokens
+PR #3: RegexHighlighter
+PR #4: ScanningHighlighter
+```
+
+Für die PRs wurde ein Review von `CyZeTLC` angefragt. Der ursprüngliche
+Sammel-PR wurde damit durch die getrennten Feature-PRs ersetzt.
 
 ## 11. VERIFIKATION
 
@@ -196,9 +197,6 @@ BUILD SUCCESSFUL
 
 ## 12. FAZIT
 
-Die CI ist eingerichtet und lokal gegen dieselben Gradle-Ziele geprüft. Der
-technische Teil von Aufgabe 4 ist erledigt.
-
-Offen bleibt nur der organisatorische GitHub-Teil mit echten Pull Requests und
-Reviews.
-
+Die CI ist eingerichtet und lokal gegen dieselben Gradle-Ziele geprüft. Die drei
+geforderten Implementierungs-Branches wurden erstellt, als Pull Requests
+nachgezogen und anschließend in der passenden Reihenfolge zusammengeführt.
