@@ -188,6 +188,43 @@ Organisatorisch erledigt:
 - Der Abschluss-PR #5 mit Integrationstest und Dokumentation wurde gemergt.
 - Für diese PRs wurde `CyZeTLC` als Reviewer angefragt.
 
+Repository- und Abgabe-Links:
+
+- Projekt-Repository:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting>
+- Portfolio-Abgabeordner B04:
+  <https://github.com/Ph4ntomic/prog2-portfolio-sose2026-leonardo-parrino/tree/main/B04>
+- GitHub Actions / CI:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/actions/workflows/ci.yml>
+
+Branch-Links:
+
+- Finaler Stand auf `master`:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/tree/master>
+- Ursprünglicher Sammelbranch `b04-syntax-highlighting`:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/tree/b04-syntax-highlighting>
+- Feature-Branch `feature/minijava-tokens`:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/tree/feature/minijava-tokens>
+- Feature-Branch `feature/regex-highlighter`:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/tree/feature/regex-highlighter>
+- Feature-Branch `feature/scanning-highlighter`:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/tree/feature/scanning-highlighter>
+- Abschluss-Branch `feature/b04-integration-docs`:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/tree/feature/b04-integration-docs>
+
+Pull-Request-Links:
+
+- PR #1, ursprünglicher Sammel-PR, später ersetzt:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/pull/1>
+- PR #2, `MiniJavaTokens`:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/pull/2>
+- PR #3, `RegexHighlighter`:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/pull/3>
+- PR #4, `ScanningHighlighter`:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/pull/4>
+- PR #5, Integrationstest und Dokumentation:
+  <https://github.com/Ph4ntomic/prog2_ybel_syntaxhighlighting/pull/5>
+
 Review-Nachweise:
 
 - Eingegangenes Review von `CyZeTLC` zum ursprünglichen Sammel-PR:
