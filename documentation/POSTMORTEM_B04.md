@@ -37,6 +37,7 @@ Umgesetzt wurden:
 - Integrationstests mit dem echten Beispieltext,
 - GitHub-Actions-Workflow mit `build`, `test` und `format`,
 - getrennte Feature-Branches und Pull Requests für die drei Implementierungsteile,
+- Abschluss-PR für Integrationstest und Dokumentation,
 - PR-Notizen,
 - ausführliche Dokumentation pro Aufgabe.
 
@@ -182,6 +183,9 @@ Organisatorisch erledigt:
 - Es wurden getrennte Feature-Branches für `MiniJavaTokens`, `RegexHighlighter`
   und `ScanningHighlighter` angelegt.
 - Die Feature-Branches wurden als PR #2, PR #3 und PR #4 gemergt.
+- Der ursprüngliche Sammel-PR #1 wurde kommentiert und geschlossen, weil er durch
+  die getrennten PRs ersetzt wurde.
+- Der Abschluss-PR #5 mit Integrationstest und Dokumentation wurde gemergt.
 - Für diese PRs wurde `CyZeTLC` als Reviewer angefragt.
 
 Falls für die Abgabe Screenshots gefordert sind, müssen noch Screenshots vom
