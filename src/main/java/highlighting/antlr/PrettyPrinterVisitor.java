@@ -232,6 +232,10 @@ public class PrettyPrinterVisitor extends MiniJavaBaseVisitor<Void> {
       return previousTokenType == MiniJavaParser.IF || previousTokenType == MiniJavaParser.WHILE;
     }
 
+    if (tokenType == MiniJavaParser.AT) {
+      return true;
+    }
+
     if (hasNoSpaceBefore(tokenType) || hasNoSpaceAfter(previousTokenType)) {
       return false;
     }
@@ -240,6 +244,7 @@ public class PrettyPrinterVisitor extends MiniJavaBaseVisitor<Void> {
         || isOperator(previousTokenType)
         || previousTokenType == MiniJavaParser.COMMA
         || previousTokenType == MiniJavaParser.RBRACK
+        || (previousTokenType == MiniJavaParser.RPAREN && isWordLike(tokenType))
         || (isWordLike(previousTokenType) && isWordLike(tokenType));
   }
 

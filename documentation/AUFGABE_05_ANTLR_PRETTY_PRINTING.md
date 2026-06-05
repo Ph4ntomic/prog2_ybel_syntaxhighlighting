@@ -105,3 +105,15 @@ Neue Testklassen:
 - `AntlrTokenCollectorTest`
 - `PrettyPrinterTest`
 - erweiterte `SyntaxHighlightingIntegrationTest`
+
+Aktueller Teststand:
+
+```text
+35 Tests
+0 Failures
+0 Skipped
+```
+
+Im Pretty Printer werden dabei auch Annotationen vor und nach Modifiern
+geprueft, damit Ausgaben wie `@Anno(value) public` und `public @Anno`
+korrekt mit Leerzeichen formatiert werden.

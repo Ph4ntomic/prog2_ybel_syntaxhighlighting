@@ -73,6 +73,29 @@ class PrettyPrinterTest {
         PrettyPrinter.format(source, 2));
   }
 
+  @Test
+  void keepsSpaceAfterAnnotationWithArguments() {
+    String source = "class Demo{@Anno(value)public String text(){return \"ok\";}}";
+
+    assertEquals(
+        lines(
+            "class Demo {",
+            "  @Anno(value) public String text() {",
+            "    return \"ok\";",
+            "  }",
+            "}"),
+        PrettyPrinter.format(source, 2));
+  }
+
+  @Test
+  void keepsSpaceBeforeAnnotationAfterModifier() {
+    String source = "class Demo{public @Anno String text(){return \"ok\";}}";
+
+    assertEquals(
+        lines("class Demo {", "  public @Anno String text() {", "    return \"ok\";", "  }", "}"),
+        PrettyPrinter.format(source, 2));
+  }
+
   private static String lines(String... lines) {
     return String.join(NL, lines);
   }
