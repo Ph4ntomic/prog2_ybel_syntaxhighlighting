@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import highlighting.antlr.AntlrTokenCollector;
 import highlighting.core.HighlightRegion;
 import highlighting.core.SyntaxHighlighter;
 import highlighting.presets.MiniJavaColours;
@@ -28,6 +29,12 @@ class SyntaxHighlightingIntegrationTest {
   }
 
   @Test
+  void antlrTokenCollectorProducesValidRegionsForStartText() {
+    assertValidRegions(
+        new AntlrTokenCollector().computeRegions(Texts.START_TEXT), Texts.START_TEXT);
+  }
+
+  @Test
   void regexHighlighterCoversAllConfiguredTokenKindsInStartText() {
     assertContainsConfiguredTokenKinds(new RegexHighlighter());
   }
@@ -35,6 +42,11 @@ class SyntaxHighlightingIntegrationTest {
   @Test
   void scanningHighlighterCoversAllConfiguredTokenKindsInStartText() {
     assertContainsConfiguredTokenKinds(new ScanningHighlighter());
+  }
+
+  @Test
+  void antlrTokenCollectorCoversAllConfiguredTokenKindsInStartText() {
+    assertContainsConfiguredTokenKinds(new AntlrTokenCollector());
   }
 
   @Test
